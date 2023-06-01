@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import { Label, Button } from 'styles/App.styled';
 
 const ContactForm = ({ onSubmit }) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <label>
+        <Label>
           Name
           <input
             type="text"
@@ -13,8 +14,8 @@ const ContactForm = ({ onSubmit }) => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
           />
-        </label>
-        <label>
+        </Label>
+        <Label>
           Number
           <input
             type="tel"
@@ -23,8 +24,8 @@ const ContactForm = ({ onSubmit }) => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
           />
-        </label>
-        <button type="submit">Add contact</button>
+        </Label>
+        <Button type="submit">Add contact</Button>
       </form>
     </>
   );

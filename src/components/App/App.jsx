@@ -5,6 +5,7 @@ import Section from 'components/Section/Section';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactList from 'components/ContactList/ContactList';
 import Filter from 'components/Filter/Filter';
+import { Container } from 'styles/App.styled';
 
 class App extends Component {
   state = {
@@ -27,7 +28,11 @@ class App extends Component {
       number: number.value,
     };
 
-    if (this.state.contacts.find(contact => contact.name === name.value)) {
+    if (
+      this.state.contacts.find(
+        contact => contact.name.toLowerCase() === name.value.toLowerCase()
+      )
+    ) {
       Notify.info(`${contact.name} is already in contacts`);
       return;
     }
@@ -60,16 +65,7 @@ class App extends Component {
     const { filter } = this.state;
     const filteredContacts = this.filterContacts();
     return (
-      <div
-        style={{
-          // height: '100vh',
-          // display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 28,
-          color: '#010101',
-        }}
-      >
+      <Container>
         <Section title="Phonebook">
           <ContactForm onSubmit={this.addContact}></ContactForm>
         </Section>
@@ -80,7 +76,7 @@ class App extends Component {
             deleteContact={this.deleteContact}
           ></ContactList>
         </Section>
-      </div>
+      </Container>
     );
   }
 }
