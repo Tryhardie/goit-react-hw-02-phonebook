@@ -18,29 +18,23 @@ class App extends Component {
     filter: '',
   };
 
-  addContact = e => {
-    e.preventDefault();
-    const form = e.target;
-    const { name, number } = form.elements;
+  addContact = newContact => {
     const contact = {
       id: nanoid(),
-      name: name.value,
-      number: number.value,
+      ...newContact,
     };
 
-    if (
-      this.state.contacts.find(
-        contact => contact.name.toLowerCase() === name.value.toLowerCase()
-      )
-    ) {
-      Notify.info(`${contact.name} is already in contacts`);
-      return;
-    }
+    this.checkForDuplicate(contact.name)
+      ? Notify.info(`${contact.name} is already in contacts`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, contact],
+        }));
+  };
 
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
-    }));
-    form.reset();
+  checkForDuplicate = newContactName => {
+    return this.state.contacts.find(
+      contact => contact.name.toLowerCase() === newContactName.toLowerCase()
+    );
   };
 
   filteringInput = e => {
